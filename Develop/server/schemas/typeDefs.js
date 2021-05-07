@@ -12,7 +12,7 @@ const typeDefs = gql`
     type Book {
         # Not the _id, but the book's id value returned from Google's Book API.
         bookId: String
-        authors: [String]
+        author: [String]
         description: String
         title: String
         image: String
@@ -31,7 +31,7 @@ const typeDefs = gql`
         savedBooks(savedBooks: String): [User]
     }
 
-    type Mutations {
+    type Mutation {
         loginUser(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!): Auth
         saveBook(bookId: String!): Book

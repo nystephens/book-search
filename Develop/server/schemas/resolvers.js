@@ -15,15 +15,15 @@ const resolvers = {
             throw new AuthenticationError('Not logged in');
         },
         // is this necessary?
-        getSingleUser: async (parent, username) => {
-            if (foundUserData) {
-                const foundUserData = await User.findOne({ username })
-                    .select('-__v -password')
-                    .populate('savedBooks')
-                return foundUserData;
-            }
-            throw new AuthenticationError('No user found.')
-        }
+        // getSingleUser: async (parent, username) => {
+        //     if (foundUserData) {
+        //         const foundUserData = await User.findOne({ username })
+        //             .select('-__v -password')
+        //             .populate('savedBooks')
+        //         return foundUserData;
+        //     }
+        //     throw new AuthenticationError('No user found.')
+        // }
     },
     Mutation: {
         addUser: async (parent, args) => {
@@ -36,7 +36,7 @@ const resolvers = {
 
             return { token, user };
         },
-        login: async (parent, { email, password }) => {
+        loginUser: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
 
             if (!user) {
@@ -52,11 +52,11 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        saveBook: async (parent, { user, bookId }, context) => {
+        saveBook: async (parent, { user, bookId, title, description, author, link, image }, context) => {
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(
                     { _id: user._id },
-                    { $addToSet: { savedBooks: bookId } },
+                    { $addToSet: { savedBooks: bookId, title, description, author, link, image } },
                     { new: true, runValidators: true }
                 );
                 return updatedUser;
