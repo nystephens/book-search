@@ -13,17 +13,7 @@ const resolvers = {
                 return userData;
             }
             throw new AuthenticationError('Not logged in');
-        },
-        // is this necessary?
-        // getSingleUser: async (parent, username) => {
-        //     if (foundUserData) {
-        //         const foundUserData = await User.findOne({ username })
-        //             .select('-__v -password')
-        //             .populate('savedBooks')
-        //         return foundUserData;
-        //     }
-        //     throw new AuthenticationError('No user found.')
-        // }
+        }
     },
     Mutation: {
         addUser: async (parent, args) => {
