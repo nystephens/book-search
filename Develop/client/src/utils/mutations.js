@@ -1,4 +1,3 @@
-
 import gql from 'graphql-tag';
 
 export const ADD_USER = gql`
@@ -21,6 +20,24 @@ mutation loginUser($email: String!, $password: String!) {
         _id
       }
     }
+};
+`;
+
+// not working
+export const SAVE_BOOK = gql`
+mutation saveBook ($bookData: bookInput) {
+  saveBook(bookData: $bookData) {
+      _id
+      savedBooks {
+        title
+        author
+        bookId
+        description
+        image
+        link
+      }
+    }
+  }
 };
 `;
 
